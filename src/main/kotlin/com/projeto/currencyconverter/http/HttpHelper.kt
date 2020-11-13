@@ -16,6 +16,4 @@ class HttpHelper {
 
         return response.body().string()
     }
-
-
 }

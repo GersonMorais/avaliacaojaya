@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.projeto.currencyconverter.entities.Transaction
 import com.projeto.currencyconverter.http.HttpHelper
+import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.HashMap
 
 class Converter {
 
@@ -21,7 +24,8 @@ class Converter {
                 0.0,
                 to,
                 0.0,
-                rate
+                rate,
+                LocalDateTime.now()
         )
         return transaction
     }

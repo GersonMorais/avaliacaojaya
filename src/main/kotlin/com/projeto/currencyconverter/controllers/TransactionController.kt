@@ -8,7 +8,11 @@ import com.projeto.currencyconverter.repositories.TransactionRepository
 import com.projeto.currencyconverter.service.Converter
 import com.projeto.currencyconverter.service.TransactionService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.lang.Error
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -20,30 +24,39 @@ class TransactionController {
     lateinit var repository: TransactionRepository
 
     @GetMapping
-    fun index(): List<Transaction>{
-        return repository.findAll()
+    fun index(): ResponseEntity<List<Transaction>>{
+        return ResponseEntity.ok(repository.findAll())
     }
 
     @GetMapping("/{userId}")
-    fun index(@PathVariable("userId") userId: Long): List<Transaction>{
+    fun index(@PathVariable("userId") userId: Long): ResponseEntity<List<Transaction>>{
+//        require(userId>1){ "ErrorMessage"}
         var listIds : ArrayList<Long> = ArrayList()
         listIds.add(userId)
-        return repository.findUserId(userId)
+        return ResponseEntity.ok(repository.findUserId(userId))
 
-//        var service : TransactionService = TransactionService()
-//        return service.transactionsByUserid(1)
     }
 
     @PostMapping
-    fun create(@RequestBody transaction: Transaction): Transaction {
-        var service = TransactionService()
+    fun create(@RequestBody transaction: Transaction): ResponseEntity<Transaction> {
+        var listCurrency = listOf("USD","BRL","EUR","JPY")
+        if(!listCurrency.contains(transaction.originCurrency)){
+            throw Exception("The currency of origin is not valid")
+//            return ResponseEntity.badRequest().body<>(Error(""))
 
-        var converter: Converter = Converter()
-        var transactionConversor: Transaction
-        transactionConversor = converter.converts(transaction.originCurrency,transaction.targetCurrency)
+        }
+        try {
+            var converter: Converter = Converter()
+            var transactionConversor: Transaction
+            transactionConversor = converter.converts(transaction.originCurrency,transaction.targetCurrency)
 
-        transaction.conversionRate = transactionConversor.conversionRate
+            transaction.conversionRate = transactionConversor.conversionRate
+            transaction.create_at = LocalDateTime.now()
+            return ResponseEntity.ok(repository.save(transaction))
+        }catch (e: Exception){
+//            return ResponseEntity.notFound().build()
+            throw Exception("An error occurred while storing data")
+        }
 
-        return repository.save(transaction)
     }
 }

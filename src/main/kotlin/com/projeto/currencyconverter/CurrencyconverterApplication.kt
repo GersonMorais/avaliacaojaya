@@ -7,6 +7,8 @@ import com.projeto.currencyconverter.http.HttpHelper
 import com.projeto.currencyconverter.service.Converter
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @SpringBootApplication
 class CurrencyconverterApplication
@@ -21,5 +23,11 @@ fun main(args: Array<String>) {
 //	val resposta = map["rates"] as HashMap<String, Double>
 //	println(resposta.getOrDefault("JPY",0.0))
 
+
+//	var date = Date()
+//	println(date)
+
+//	var datadata = java.time.LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
+//	println(datadata)
 
 }
