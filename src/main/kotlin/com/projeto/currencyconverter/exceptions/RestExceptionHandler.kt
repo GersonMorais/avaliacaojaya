@@ -12,12 +12,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 class RestExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(value = [ (Exception::class) ])
-    fun handleAnyException(e : Exception, request : WebRequest) : ResponseEntity<Object>{
+    fun handleAnyException(e : Exception, request : WebRequest) : ResponseEntity<ErrorMessage>{
 
-        var errorDescription : String = e.localizedMessage
-        if(errorDescription == null) errorDescription = e.toString()
-
-        var errorMessage : ErrorMessage = ErrorMessage()
-        return ResponseEntity(HttpStatus.BAD_REQUEST)
+        var errorMessage = ErrorMessage()
+        errorMessage.errorMessage(e.message.toString())
+        return ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.BAD_REQUEST)
     }
 }

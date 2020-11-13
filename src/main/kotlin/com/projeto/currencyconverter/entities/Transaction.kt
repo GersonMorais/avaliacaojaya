@@ -1,6 +1,7 @@
 package com.projeto.currencyconverter.entities
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import org.jetbrains.annotations.NotNull
 import org.joda.time.DateTime
 import java.time.LocalDateTime
 import java.util.*
