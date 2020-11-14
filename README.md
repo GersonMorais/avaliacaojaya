@@ -1,8 +1,8 @@
 # Conversor de Moeda
 
-Projeto criado para a conversão de valor através das moedas repassadas pelo usuário, onde será feito o calculo de conversão de acordo com a taxa de conversão e retornado o valor calculado.
+_Projeto criado para a conversão de valor através das moedas repassadas pelo usuário, onde será feito o calculo de conversão de acordo com a taxa de conversão e retornado o valor calculado._
 
-# Tecnologias
+## Tecnologias
 
 - Kotlin
 - Spring Boot
@@ -10,13 +10,13 @@ Projeto criado para a conversão de valor através das moedas repassadas pelo us
 - Intellij
 - Maven
 
-# Propósito
+## Propósito
 
 Esse projeto tem como objetivo fazer a conversão de valores entre duas moedas distintas, conforme a taxa de conversão.
 
 Foi desenvolvida uma API REST onde está preparada para receber uma JSON de solicitação com os dados para conversão e como resposta também retorna um JSON.
 
-# Camadas
+## Camadas
 
 Para que o projeto mantenha a organização de responsabilidades, o mesmo está separado em camadas, onde fica mais de manutenção está dividida da seguinte forma:
 
@@ -31,7 +31,7 @@ Para que o projeto mantenha a organização de responsabilidades, o mesmo está 
     - Http - mantem a comunicação com o api de conversão
     - Docs - configuração do swagger
 
-# Documentação
+## Documentação
 
 Para uma melhor visualização no que diz respeito a documentação, foi configurado e usado:
 
@@ -39,7 +39,7 @@ Para uma melhor visualização no que diz respeito a documentação, foi configu
 
     link: http://localhost:port/swagger-ui/index.html
 
-# Passo a passo
+## Passo a passo
 
 Como rodar a aplicação
 
@@ -73,4 +73,3 @@ Como rodar a aplicação
     - GET - [http://localhost:8080/transactions](http://localhost:8080/transactions)
         - Retorna a lista de transações criadas.
 5. Os dados podem ser consultados no H2 Data Base configurados com suas credenciais em currencyconverter/src/main/resources/application.properties e acessado atraves da url: [http://localhost:8080/h2-console/login.jsp](http://localhost:8080/h2-console/login.jsp)
-6.
