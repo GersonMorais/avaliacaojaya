@@ -11,11 +11,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 class RestExceptionHandler : ResponseEntityExceptionHandler() {
 
-    @ExceptionHandler(value = [ (Exception::class) ])
+    @ExceptionHandler(value = [ NotFoundException::class, ValidationException::class ])
     fun handleAnyException(e : Exception, request : WebRequest) : ResponseEntity<ErrorMessage>{
 
         var errorMessage = ErrorMessage()
         errorMessage.errorMessage(e.message.toString())
+
+        if(e is NotFoundException){
+            return ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.NOT_FOUND)
+        }
         return ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.BAD_REQUEST)
+
     }
 }

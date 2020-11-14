@@ -5,28 +5,26 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.projeto.currencyconverter.entities.Transaction
 import com.projeto.currencyconverter.http.HttpHelper
 import java.time.LocalDateTime
-import java.util.*
 import kotlin.collections.HashMap
 
 class Converter {
 
-    fun converts(from: String, to: String): Transaction{
+    fun converts(transaction : Transaction): Transaction{
         var http : HttpHelper = HttpHelper()
-        var jsonString = http.get(from)
+        var jsonString = http.get(transaction.originCurrency)
         val exchange = ObjectMapper().readValue<MutableMap<Any, Any>>(jsonString)
         val rates = exchange["rates"] as HashMap<String, Double>
-        val rate = rates.getOrDefault(to,0.0).toDouble()
-        println("taxa de conversao $rate")
-        var transaction: Transaction = Transaction(
+        val rate = rates.getOrDefault(transaction.targetCurrency,0.0).toDouble()
+        val targetValue = transaction.originValue * rate
+        return Transaction(
                 0,
-                0,
-                from,
-                0.0,
-                to,
-                0.0,
+                transaction.userId,
+                transaction.originCurrency,
+                transaction.originValue,
+                transaction.targetCurrency,
+                targetValue,
                 rate,
                 LocalDateTime.now()
         )
-        return transaction
     }
 }
